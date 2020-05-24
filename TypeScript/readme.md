@@ -117,4 +117,22 @@ let tupleArr:[string,number] = ['a',1];
   
   ```
 
-  
+## 类
+
+```typescript
+// ES6
+class Person{
+    name: string;
+	age: number;
+	constructor(name:string,age:number){
+        this.age = age;
+        this.name = name;
+    }
+	sayName(){
+        
+    }
+}
+let user = new Person('zhangsan',14)
+
+```
+
