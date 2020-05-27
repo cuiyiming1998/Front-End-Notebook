@@ -125,3 +125,210 @@ this.setState((state,props)=>{
 
 `props`：父组件传给子组件，单向流动，不能子传父。`props`的传值可以使任意的类型
 
+`props`可以设置默认值
+
+```jsx
+Hello.defaultProps = { msg: 'hello world' }
+
+```
+
+`props`可以传递父元素的函数，就可以去修改父元素的状态（State），从而达到传递数据给父元素的功能。
+
+子传父：调用父元素的函数从而操作父元素的数据。
+
+## React事件
+
+1. 绑定事件使用驼峰命名
+2. 使用`{}`传入函数
+3. React返回的事件对象是代理的原生事件对象，如果想要查看具体值，必须直接输出
+4. 原生阻止默认行为时，可以使用`return false`。这种方式在React中不可行，需要在事件处理函数中添加`e.preventDefault()`
+
+事件传参：使用箭头函数（匿名函数）
+
+```jsx
+{/* 使用箭头函数 */}
+<button onClick={(e)=>{this.clickEvent(e)}}>点击事件</button>
+
+{/* 使用匿名函数，需要绑定this */}
+<button onClick={function(e){this.clickEvent(e)}.bind(this)}>
+    点击事件
+</button>
+
+```
+
+
+
+## 条件渲染
+
+React中条件渲染和JavaScript中，条件运算（`if... else..`）
+
+1. 直接通过条件运算返回要渲染的JSX对象
+2. 先运算要返回的JSX对象，再渲染
+
+## 列表渲染
+
+将列表内容拼装成数组，放置到模板中
+
+使用数组的`map`方法，对每一项数据按照JSX格式进行加工，最终得到每一项都是JSX对象的数组，再进行渲染
+
+`key`需要放置在每一项当中
+
+```jsx
+let arr = [{name:'zhang3',age:12},{name:'li4',age:16}];
+render(){
+    return(
+    	<div>
+        	arr.map((item,index)=>{
+                return(
+                	<div key={index}>
+                    	<p>name:{item.name}</p>
+                        <p>age:{item.age}</p>
+                    </div>
+                    <hr/>
+                )
+            })
+        </div>
+    )
+}
+
+```
+
+## 生命周期
+
+是组件从实例化到渲染到最终从页面中销毁的整个过程，在生命周期中我们有许多可以调用的事件，成为钩子函数
+
+卸载挂载过程：
+
+`constructor()`,`componentWillMount()`,`componentDidMount()`,`componentWillUnmount`
+
+更新过程：
+
+`componentWillReceiveProps`将要接收prop
+
+`shouldComponentUpdate`组件接收到新的state或者props，判断是否更新
+
+`componentWillUpdate`
+
+`componentDidUpdate`
+
+`render()`
+
+## 插槽
+
+在组件中写入内容，这些内容可以被识别和控制
+
+原理：组件中写入的HTML，可以传入组件中。通过`props.children`可以获取到插槽的内容。
+
+## 路由
+
+使用库`react-router-dom`
+
+```
+npm install react-router-dom --save
+
+```
+
+`Router`：所有路由组件的根组件，包裹路由规则的最外层容器，可以在一个组件中写多个
+
+​		属性：`basename`：设置根的路径
+
+`Route`：路由规则匹配的组件，显示当前对应规则的组件
+
+`Link`：路由跳转的组件
+
+如果要精确匹配，要在`Route`上加`exact`属性
+
+## Redux
+
+一种状态管理的解决方案
+
+解决React数据管理（状态管理），用于中大型，数据比较庞大组件之间数据交互多的情况下使用
+
+`store`：数据仓库，保存数据的地方
+
+`state`：对象，包含整个应用所需要的数据
+
+`action`：用来触发数据改变的方法
+
+`dispatch`
+
+`reduce`：函数，改变数据，生成新的状态，从而改变页面
+
+## React-Redux
+
+`Provider`：将store与组件进行关联
+
+`mapStateToProps(state)`：将store中的state映射到组件里的props
+
+`mapDispatchToProps(dispatch)`：将dispatch映射到组件里的props
+
+`connect`：将组件和数据进行连接
+
+使用方法：
+
+1. 初始化数据,实例化store
+
+   ```jsx
+   function reducer(state={num:0},Action){
+       switch(Action.type){
+           case "add":
+               state.num++;
+               break;
+           default:
+               break;
+       }
+       return {...state}
+   }
+   
+   const store = createStore(reducer);
+   
+   ```
+
+2. 获取数据，修改数据
+
+   ```jsx
+   // 将state映射到prop
+   function mapStateToProp(state){
+       return {
+           value: num
+       }
+   }
+   //将dispatch映射到prop
+   function mapDispatchToProp(){
+       return {
+           add()=>{
+           	dispatch({
+   				type: 'add'
+               })
+       	}
+       }
+   }
+   
+   ```
+
+3. 关联
+
+   ```jsx
+   const CounterCom = connect(
+   	mapStateToprop,
+       mapDispatchToProp
+   )(Counter)
+   
+   ```
+
+4. 渲染
+
+   ```jsx
+   class App extends React.Component {
+       render(){
+           return (
+           	<Provider store={store}>
+               	<CounterCom></CounterCom>
+               </Provider>
+           )
+       }
+   }
+   
+   ```
+
+   
