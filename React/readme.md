@@ -134,7 +134,19 @@ Hello.defaultProps = { msg: 'hello world' }
 
 `props`可以传递父元素的函数，就可以去修改父元素的状态（State），从而达到传递数据给父元素的功能。
 
-子传父：调用父元素的函数从而操作父元素的数据。
+子传父：调用父元素的函数（父元素将函数作为`props`传给子元素）从而操作父元素的数据。
+
+## 单向数据流
+
+`props`是property的缩写，可以理解为HTML标签的attribute
+
+不可以使用`this.props`直接修改props，因为`props是`只读的，`props`是用于整个组件树中传递数据和配置
+
+在当前组件访问`props`，使用`this.props`
+
+`State`与`props`的区别在于`State`只存在于组件内部，**只能**从当前组件调用`setState`来修改它的值
+
+一般我们更新组件都是通过改变`State`的值，将值通过属性传递给子组件，子组件获取`props`从而达到更新
 
 ## React事件
 
@@ -212,6 +224,17 @@ render(){
 `componentDidUpdate`
 
 `render()`
+
+提高组件性能——通过`shouldComponentUpdate`
+
+```jsx
+shouldComponentUpdate(){
+    return false;
+}
+
+```
+
+
 
 ## 插槽
 
@@ -331,4 +354,8 @@ npm install react-router-dom --save
    
    ```
 
-   
+
+## 函数式编程
+
+1. 代码清晰，一个函数代表一个功能
+2. 方便代码测试，更容易实现前端的自动化测试
