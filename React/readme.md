@@ -277,6 +277,45 @@ npm install react-router-dom --save
 
 `reduce`：函数，改变数据，生成新的状态，从而改变页面
 
+1. 创建store
+
+   ```jsx
+   import { createStore } from 'redux'
+   import reducer from './reducer' // 引入reducer
+   
+   const store = createStore(reducer);
+   
+   export default store;
+   
+   ```
+
+2. 创建reducer
+
+   ```jsx
+   const defaultState = {
+       name: 'zhangsan',
+       age: 22
+   }
+   
+   export default (state=defaultState,action)=>{
+       switch(action.type){
+           case 'click':
+               let newState=JSON.parse(JSON.stringify(state))
+          		newState.value = action.value;
+               break;
+           default:
+               break;
+       }
+       // ...操作
+       return newState
+   }
+   
+   ```
+
+3. 在`components`中引入`store`，并使用`store.getState()`获取值
+
+`reducer`里只能接收state，不能改变state
+
 ## React-Redux
 
 `Provider`：将store与组件进行关联
