@@ -398,3 +398,26 @@ npm install react-router-dom --save
 
 1. 代码清晰，一个函数代表一个功能
 2. 方便代码测试，更容易实现前端的自动化测试
+
+## React Hooks
+
+`useState`
+
+```jsx
+const [count,setCount] = useState(0)
+
+```
+
+`useEffect`：相当于`componentDidMount`和`componentDidUpdate`这两个生命周期，传入第二个参数（数组）可以在数组内的值变化的时候执行，若为空，则只在组件销毁的时候执行（`componentWillUnmount`）
+
+```jsx
+// useEffect 副作用 --> componentDidMount/componentDidUpdate
+useEffect(()=>{
+    console.log('Update')
+    return ()=>{
+        console.log('Unmount')
+    }
+},[])
+
+```
+
