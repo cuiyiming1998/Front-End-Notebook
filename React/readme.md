@@ -421,3 +421,39 @@ useEffect(()=>{
 
 ```
 
+`useContext`解决父子组件传值问题，使用counter组件举例：
+
+```jsx
+import React, { useState , useEffect , createContext , useContext} from 'react';
+
+const CountContext = createContext();
+
+function Counter() {
+    // useContext  解决父子组件传值
+
+    let count = useContext(CountContext);
+
+    return (
+        <div>
+            <h2>count = {count}</h2>
+        </div>
+    )
+}
+
+function Hooks() {
+    const [count,setCount] = useState(0);
+    return (
+        <div>
+            <p>You clicked {count} times.</p>
+            <button onClick={()=>{setCount(count+1)}}>Click me</button>
+            <CountContext.Provider value={count}>
+                <Counter />
+            </CountContext.Provider>
+        </div>
+    )
+}
+
+```
+
+声明``CountContext`，父组件通过`<CountContext.Provider value={count}`将`count`的值传给所包裹的组件，子组件通过`useContext`来接收。
+
