@@ -129,3 +129,40 @@
 4. vh/vw
 
    ...
+
+
+
+## BFC
+
+BFC(Block Formatting Contexts)块级格式化上下文。
+
+可以把BFC理解为一个隔离的容器，容器内部的元素不会在布局上影响容器外部的元素
+
+### 触发BFC（满足一条即可）
+
+- body根元素
+- 浮动元素：`float`除了`none`以外的值
+- 绝对定位元素：`position: absolute`或者`fixed`
+- `display`的值为`inline-block`、`table-cell`、`flex`
+- `overflow`除了`visible`以外的值
+
+### BFC的应用
+
+- 避免外边距的重叠
+- 清除浮动
+- 阻止元素被浮动元素覆盖
+
+
+
+## 清除浮动
+
+父元素会因为子元素浮动所造成内部高度为0
+
+- 使用伪元素`:after`让其具有`clear:both`属性
+- 给父级添加`overflow:hidden`
+
+
+
+## z-index
+
+`z-index`控制重叠元素的堆叠顺序，只能影响`position`的值不是`static`的元素
