@@ -1,5 +1,9 @@
 # JavaScript
 
+[toc]
+
+
+
 ## 闭包
 
 - 闭包是能够读取其他函数内部变量的函数
@@ -350,3 +354,180 @@ function func = (()=>{
 ### `Promise.race(interable)`
 
 race就是赛跑，意思就是`Promise.race([f1,f2,f3])`里面哪一个结束的快，就返回哪一个结果，无论是`fulfilled`还是`rejected`。
+
+## 通过JS判断一个数组
+
+```javascript
+var arr = [];
+
+arr.instanceof Array; // true
+
+arr.constructor == Array; // true
+
+Object.prototype.toString.call(arr) == '[object Array]' 
+
+console.log(Array.isArray(arr)); // true
+```
+
+## let与var的区别
+
+- `let`不存在变量提升
+- 如果块区中存在`let`，`const`命令，就会形成封闭作用域
+
+
+
+## map与forEach的区别
+
+- `forEach()`方法是遍历与循环的最基本的方法。它直接修改原数组，不会返回执行结果（`undefined`）。
+- `map()`方法会得到一个新的数组并返回，不会修改原来的数组。
+- `map()`方法的执行速度比`forEach()`快一些。
+- `map()`方法返回新的数组，可以在后面使用`filter()`，`reduce()`等组合。
+
+
+
+## 箭头函数
+
+- 普通函数可以有匿名函数，也可以有具名函数。箭头函数全是匿名函数
+- 箭头函数不能用于构造函数
+- 箭头函数没有自己的`this`，`this`指向的是上一层
+- 箭头函数没有`arguments`对象
+- 箭头函数不具有prototype原型对象、super等
+
+
+
+## 异步编程的方式
+
+- 回调函数
+- 事件监听
+- 发布/订阅（观察者模式）
+- `Promise`
+- `Generator`
+- `async await`
+
+
+
+## 数组去重
+
+1. 使用ES6中的Set
+
+   ```javascript
+   function unique(arr){
+       return Array.from(new Set(arr))
+   }
+   var arr = [1,1,2,2,3,3];
+   console.log(unique(arr));
+   
+   let arr2 = new Set(arr);
+   arr2 = [...arr2];
+   ```
+
+2. 利用for嵌套for
+
+   ```javascript
+   function unique(arr){
+       for(let i=0;i<arr.length;i++){
+           for(let j=i+1;j<arr.length;j++){
+   			if(arr[i] == arr[j]){
+                   arr.splice(j,1);
+                   j--;
+               }
+           }
+       }
+       return arr;
+   }
+   ```
+
+3. 使用`indexOf`
+
+   ```javascript
+   function unique(arr){
+       var array = [];
+       for(let i=0;i<arr.length;i++){
+   		if(array.indexOf(arr[i]) === -1){
+               array.push(arr[i])
+           }
+      	}
+       return array;
+   }
+   ```
+
+4. 使用`includes`
+
+   ```javascript
+   function unique(arr){
+       var array = [];
+       for(let i=0;i<arr.length;i++){
+           if( !array.includes(arr[i]) ){
+               array.push(arr[i])
+           }
+       }
+       return array;
+   }
+   ```
+
+5. 使用`filter`
+
+   ```javascript
+   function unique(arr){
+       return arr.filter(function(item,index,arr){
+           return arr.indexOf(item) === index;
+       })
+   }
+   ```
+
+
+
+## 性能优化
+
+- 减少`http`请求次数
+- 减少`DNS`查询
+- 使用`CDN`
+- 避免重定向
+- 图片懒加载
+- 减少DOM操作
+- 使用外部JS和CSS
+- 压缩JS，CSS，图片等资源
+- 尽量减少`iframe`的使用
+- 避免图片`src`为空
+- 把样式表放在`<link>`中
+- 把JS代码放在底部
+
+
+
+## 深拷贝和浅拷贝
+
+- 浅拷贝和深拷贝都只针对引用数据类型，浅拷贝只复制某一对象的指针，而不复制对象本身，新旧对象还是共享同一块内存
+
+- 深拷贝会创造另外一个一模一样的对象，新对象跟源对象不共享内存，修改新对象不会影响原对象
+
+- `Object.assign()`实现浅拷贝
+
+  ```javascript
+  let obj1 = {
+      a:{
+          b:1
+      },
+      c:2
+  }
+  let obj2 = Object.assign({},obj1);
+  ```
+
+  展开运算符也可以实现浅拷贝
+
+- 通过`JSON.parse(JSON.stringify(obj))`实现深拷贝
+
+- 递归实现深拷贝
+
+
+
+## 防抖和节流
+
+### 防抖
+
+在事件连续触发时，中间的空闲时间必须大于x，才能够执行
+
+
+
+### 节流
+
+函数连续调用时，在一段时间中，限定其执行频率为x次
