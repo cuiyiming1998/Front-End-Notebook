@@ -143,8 +143,30 @@ Vue是采用数据劫持结合发布者-订阅者模式，通过`Object.definePr
 - `beforeCreate`：在new一个Vue实例后，`data`和`methods`中数据还没有初始化。不能在这个阶段使用
 - `created`：`data`和`methods`中数据已经被初始化好，如果需要调用`methods`中的方法或者使用`data`的数据，最早可以在这个阶段操作
 - `beforeMounted`：内存中已经编译好模板，但是还没有挂载到页面
-- `Mounted`：Vue实例初始化完成。这时组件脱离了创建阶段，进入到了运行阶段。如果我们想要通过插件操作DOM节点，最早可以在这个阶段进行
+- mounted`：Vue实例初始化完成。这时组件脱离了创建阶段，进入到了运行阶段。如果我们想要通过插件操作DOM节点，最早可以在这个阶段进行
 - `beforeUpdate`： 当执行这个钩子时，页面中的显示的数据还是旧的，data中的数据是更新后的， 页面还没有和最新的数据保持同步
 - `updated`：页面显示的数据和data中的数据已经保持同步了，都是最新的
 - `beforeDestory`：Vue实例从运行阶段进入到了销毁阶段，这个时候上所有的 data 和 methods ， 指令， 过滤器 ……都是处于可用状态。还没有真正被销毁
 - `destroyed`： 这个时候上所有的 data 和 methods ， 指令， 过滤器 ……都是处于不可用状态。组件已经被销毁了。
+
+
+
+## MVC与MVVM
+
+### MVC
+
+- View接收用户的交互请求
+- View将请求转发给Controller
+- Controller操作Model进行数据更新
+- 数据更新之后Model通知View数据变化
+- View显示更新之后的数据
+
+### MVVM
+
+- VM指的是：ViewModel
+- MVVM实现了View和Model的自动更新。也就是说，当Model属性发生改变的时候，我们不需要自己手动操作DOM，而是改变之后的属性对应的View会自动发生改变。
+- 在MVVM中，View不知道Model的存在，Model和ViewModel也察觉不到View的存在。
+- 双向数据绑定
+
+
+
