@@ -166,3 +166,29 @@ BFC(Block Formatting Contexts)块级格式化上下文。
 ## z-index
 
 `z-index`控制重叠元素的堆叠顺序，只能影响`position`的值不是`static`的元素
+
+
+
+## OPACITY/VISIBILITY/DISPLAY
+
+### opacity:0
+
+- DOM结构：透明，但是会被渲染，占据空间
+- 可以进行DOM事件监听
+- 提升为合成层，不会触发重绘，性能更高
+- 会被子元素继承，且子元素不能通过`opacity:1`来取消隐藏
+
+### visibility:hidden
+
+- DOM结构：元素会被隐藏，但是会被渲染，占据空间
+- 无法进行事件监听
+- 动态改变此属性时会触发重绘
+- 会被子元素继承，子元素可以通过`visibility:visible`来取消隐藏
+
+### display:none
+
+- DOM结构：浏览器不会渲染此元素，不占据空间
+- 无法进行DOM事件监听
+- 动态改变此属性时会引起重排，性能较差
+- 不会被子元素继承，子元素不会渲染
+
